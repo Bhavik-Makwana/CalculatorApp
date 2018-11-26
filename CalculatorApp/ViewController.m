@@ -59,20 +59,20 @@
 - (IBAction)equalsPressed:(id)sender {
     if (op == '+') {
         double outputNum = [firstEntry doubleValue] + [secondEntry intValue];
-        _labelOutput.text = [NSString stringWithFormat:@"%0.3f", outputNum];
+        _labelOutput.text = [NSString stringWithFormat:@"%g", outputNum];
     }
     else if (op == '-') {
         double outputNum = [firstEntry doubleValue] - [secondEntry intValue];
-        _labelOutput.text = [NSString stringWithFormat:@"%0.3f", outputNum];
+        _labelOutput.text = [NSString stringWithFormat:@"%g", outputNum];
     }
     else if (op == '*') {
         double outputNum = [firstEntry doubleValue] * [secondEntry intValue];
-        _labelOutput.text = [NSString stringWithFormat:@"%0.3f", outputNum];
+        _labelOutput.text = [NSString stringWithFormat:@"%g", outputNum];
     }
     else if (op == '/') {
         if ([secondEntry intValue] !=  0) {
             double outputNum = [firstEntry doubleValue] / [secondEntry intValue];
-            _labelOutput.text = [NSString stringWithFormat:@"%0.3f", outputNum];
+            _labelOutput.text = [NSString stringWithFormat:@"%g", outputNum];
         }
         else {
             _labelOutput.text = @"Error";
@@ -87,21 +87,35 @@
     double tag = sender.tag;
     if (operatorPressed == FALSE) {
         if (firstEntry == NULL) {
-            firstEntry = [NSString stringWithFormat:@"%0.3f",tag];
-            _labelOutput.text = firstEntry;
+            if (tag != 99) {
+                firstEntry = [NSString stringWithFormat:@"%0.0f",tag];
+                _labelOutput.text = firstEntry;
+            }
         }
         else {
-            firstEntry = [NSString stringWithFormat:@"%@%0.3f",firstEntry, tag];
+            if (tag == 99) {
+                firstEntry = [NSString stringWithFormat:@"%@.",firstEntry];
+            }
+            else {
+                firstEntry = [NSString stringWithFormat:@"%@%0.0f",firstEntry, tag];
+            }
             _labelOutput.text = firstEntry;
         }
     }
     else {
         if (secondEntry == NULL) {
-            secondEntry = [NSString stringWithFormat:@"%0.3f",tag];
-            _labelOutput.text = secondEntry;
+            if (tag != 99) {
+                secondEntry = [NSString stringWithFormat:@"%0.0f",tag];
+                _labelOutput.text = secondEntry;
+            }
         }
         else {
-            secondEntry = [NSString stringWithFormat:@"%@%0.3f",secondEntry, tag];
+            if (tag == 99) {
+                secondEntry = [NSString stringWithFormat:@"%@.",secondEntry];
+            }
+            else {
+                secondEntry = [NSString stringWithFormat:@"%@%0.0f",secondEntry, tag];
+            }
             _labelOutput.text = secondEntry;
         }
     }
